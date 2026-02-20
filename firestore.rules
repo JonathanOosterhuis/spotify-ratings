@@ -1,0 +1,17 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Ratings collection — iedereen kan lezen, alleen ingelogde gebruikers schrijven
+    match /ratings/{trackId} {
+      allow read: if true;
+      allow write: if false; // alleen server-side via API route
+
+      match /users/{userId} {
+        allow read: if true;
+        allow write: if false; // alleen server-side via API route
+      }
+    }
+  }
+}
