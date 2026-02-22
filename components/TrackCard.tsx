@@ -107,21 +107,27 @@ export default function TrackCard({
         </p>
 
         {/* Other users' ratings */}
-        {Object.entries(localUsers).length > 0 && (
-          <div className="flex gap-3 mt-2 flex-wrap">
-            {Object.entries(localUsers).map(([userId, u]) => (
-              <span
-                key={userId}
-                className={`text-xs px-2 py-0.5 rounded-full ${
-                  userId === currentUserId
-                    ? "bg-spotify-green/20 text-spotify-green border border-spotify-green/30"
-                    : "bg-white/10 text-white/50"
-                }`}
-              >
-                {u.displayName.split(" ")[0]}: {u.rating}
-              </span>
-            ))}
+        {myRating === null ? (
+          <div className="mt-2">
+            <span className="text-xs text-white/30 italic">🔒 Geef eerst een cijfer</span>
           </div>
+        ) : (
+          Object.entries(localUsers).length > 0 && (
+            <div className="flex gap-3 mt-2 flex-wrap">
+              {Object.entries(localUsers).map(([userId, u]) => (
+                <span
+                  key={userId}
+                  className={`text-xs px-2 py-0.5 rounded-full ${
+                    userId === currentUserId
+                      ? "bg-spotify-green/20 text-spotify-green border border-spotify-green/30"
+                      : "bg-white/10 text-white/50"
+                  }`}
+                >
+                  {u.displayName.split(" ")[0]}: {u.rating}
+                </span>
+              ))}
+            </div>
+          )
         )}
 
         {/* Rating Input */}
@@ -136,12 +142,21 @@ export default function TrackCard({
 
       {/* Average Score */}
       <div className="flex-shrink-0 flex flex-col items-center justify-center w-16 text-center">
-        <span className={`text-3xl font-bold ${scoreColor}`}>
-          {localAverage !== null ? localAverage.toFixed(1) : "—"}
-        </span>
-        <span className="text-xs text-white/30 mt-1">
-          {localCount > 0 ? `${localCount} stem${localCount !== 1 ? "men" : ""}` : "geen"}
-        </span>
+        {myRating === null ? (
+          <>
+            <span className="text-3xl font-bold text-white/20">?</span>
+            <span className="text-xs text-white/20 mt-1">verborgen</span>
+          </>
+        ) : (
+          <>
+            <span className={`text-3xl font-bold ${scoreColor}`}>
+              {localAverage !== null ? localAverage.toFixed(1) : "—"}
+            </span>
+            <span className="text-xs text-white/30 mt-1">
+              {localCount > 0 ? `${localCount} stem${localCount !== 1 ? "men" : ""}` : "geen"}
+            </span>
+          </>
+        )}
       </div>
     </div>
   );

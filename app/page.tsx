@@ -134,6 +134,12 @@ export default function Home() {
             >
               Ranglijst
             </Link>
+            <Link
+              href="/stats"
+              className="text-sm text-white/60 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/10 transition-colors"
+            >
+              Stats
+            </Link>
             <div className="flex items-center gap-2">
               {session.user?.image && (
                 <Image

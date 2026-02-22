@@ -5,6 +5,13 @@ import { SessionProvider } from "next-auth/react";
 export const metadata: Metadata = {
   title: "Spotify Ratings",
   description: "Rate songs in je gedeelde Spotify playlist",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Ratings",
+  },
+  other: { "theme-color": "#1DB954" },
 };
 
 export default function RootLayout({

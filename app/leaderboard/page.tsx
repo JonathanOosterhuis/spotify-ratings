@@ -40,7 +40,7 @@ export default function LeaderboardPage() {
   const loadLeaderboard = async () => {
     setLoading(true);
     try {
-      const [playlistRes] = await Promise.all([fetch("/api/playlist")]);
+      const playlistRes = await fetch("/api/playlist");
       if (!playlistRes.ok) return;
       const { tracks } = await playlistRes.json();
 
@@ -98,12 +98,20 @@ export default function LeaderboardPage() {
             </Link>
             <h1 className="font-bold text-lg">Ranglijst</h1>
           </div>
-          <button
-            onClick={loadLeaderboard}
-            className="text-xs text-white/40 hover:text-white transition-colors"
-          >
-            Vernieuwen
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/stats"
+              className="text-sm text-white/60 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/10 transition-colors"
+            >
+              Stats
+            </Link>
+            <button
+              onClick={loadLeaderboard}
+              className="text-xs text-white/40 hover:text-white transition-colors"
+            >
+              Vernieuwen
+            </button>
+          </div>
         </div>
       </header>
 
